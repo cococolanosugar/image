@@ -104,6 +104,11 @@ func NewIndexReference(path string, sourceIndex int) (types.ImageReference, erro
 	return newReference(path, nil, sourceIndex, nil, nil)
 }
 
+// NewReferenceWithReaderWriter returns a Docker archive reference for a path and an optional reference.
+func NewReferenceWithReaderWriter(path string, ref reference.NamedTagged, archiveReader *tarfile.Reader, writer *Writer) (types.ImageReference, error) {
+	return newReference(path, ref, -1, archiveReader, writer)
+}
+
 // newReference returns a docker archive reference for a path, an optional reference or sourceIndex,
 // and optionally a tarfile.Reader and/or a tarfile.Writer matching path.
 func newReference(path string, ref reference.NamedTagged, sourceIndex int,
