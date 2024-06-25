@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"strconv"
 	"strings"
 
@@ -107,6 +108,10 @@ func NewIndexReference(path string, sourceIndex int) (types.ImageReference, erro
 // NewReferenceWithReaderWriter returns a Docker archive reference for a path and an optional reference.
 func NewReferenceWithReaderWriter(path string, ref reference.NamedTagged, archiveReader *tarfile.Reader, writer *Writer) (types.ImageReference, error) {
 	return newReference(path, ref, -1, archiveReader, writer)
+}
+
+func NewReaderFromStream(sys *types.SystemContext, inputStream io.Reader) (*tarfile.Reader, error) {
+	return tarfile.NewReaderFromStream(sys, inputStream)
 }
 
 // newReference returns a docker archive reference for a path, an optional reference or sourceIndex,
