@@ -105,12 +105,13 @@ func NewIndexReference(path string, sourceIndex int) (types.ImageReference, erro
 	return newReference(path, nil, sourceIndex, nil, nil)
 }
 
-// NewReferenceWithReaderWriter returns a Docker archive reference for a path and an optional reference.
+// NewReferenceWithReaderWriter returns a Docker archive reference for a path and an optional reference and reader writer.
 func NewReferenceWithReaderWriter(path string, ref reference.NamedTagged, archiveReader *tarfile.Reader, writer *Writer) (types.ImageReference, error) {
 	return newReference(path, ref, -1, archiveReader, writer)
 }
 
-func NewReaderFromStream(sys *types.SystemContext, inputStream io.Reader) (*tarfile.Reader, error) {
+// NewTarFileReaderFromStream returns a tar file reader from input stream
+func NewTarFileReaderFromStream(sys *types.SystemContext, inputStream io.Reader) (*tarfile.Reader, error) {
 	return tarfile.NewReaderFromStream(sys, inputStream)
 }
 
